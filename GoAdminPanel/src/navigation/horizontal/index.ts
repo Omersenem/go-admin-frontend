@@ -9,7 +9,7 @@ const navigation = (): HorizontalNavItemsType => [
   },
   {
     title: 'Second Page',
-    path: '/second-page',
+    path: '/users',
     icon: 'mdi:email-outline',
   },
   {

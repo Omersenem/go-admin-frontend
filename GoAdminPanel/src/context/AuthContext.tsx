@@ -5,10 +5,13 @@ import { createContext, useEffect, useState, ReactNode } from 'react'
 import { useRouter } from 'next/router'
 
 // ** Axios
-import axios from 'axios'
 
 // ** Config
 import authConfig from 'src/configs/auth'
+
+import Cookies from 'js-cookie'
+
+
 
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
@@ -39,58 +42,72 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
+      const storedToken = window.localStorage.getItem(
+        'access_token'
+      )!;
       if (storedToken) {
         setLoading(true)
-        await axios
-          .get(authConfig.meEndpoint, {
-            headers: {
-              Authorization: storedToken
-            }
-          })
-          .then(async response => {
-            setLoading(false)
-            setUser({ ...response.data.userData })
-          })
-          .catch(() => {
-            localStorage.removeItem('userData')
-            localStorage.removeItem('refreshToken')
-            localStorage.removeItem('accessToken')
-            setUser(null)
-            setLoading(false)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
-              router.replace('/login')
-            }
-          })
+
+        setUser(JSON.parse(localStorage.getItem("userData")!));
+        setLoading(false);
       } else {
-        setLoading(false)
+        setUser(null)
+
+        setLoading(false);
       }
+    };
+    initAuth();
+  }, []);
+
+  const handleLogin = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    console.log('params:', params)
+
+
+    try {
+      const response = await fetch('http://localhost:8080/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login request failed');
+      }
+
+      const data = await response.json();
+
+      const returnUrl = router.query.returnUrl;
+
+      // Kullanıcı bilgilerini ayarla ve localStorage'a kaydet
+      setUser(data.data);
+      Cookies.set('jwt', data.token)
+
+      localStorage.setItem(
+        authConfig.storageTokenKeyName,
+        data.token
+      );
+      window.localStorage.setItem('userData', JSON.stringify(data.data));
+
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          ...data.data,
+          role: "admin",
+        })
+      );
+      setUser({ ...data.data, role: "admin" });
+
+
+      // Yönlendirme URL'si belirle
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/';
+
+      // Yönlendirme yap
+      router.replace(redirectURL);
+    } catch (err) {
+     errorCallback(err);
     }
-
-    initAuth()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
-    axios
-      .post(authConfig.loginEndpoint, params)
-      .then(async response => {
-        params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
-          : null
-        const returnUrl = router.query.returnUrl
-
-        setUser({ ...response.data.userData })
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
-
-        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-
-        router.replace(redirectURL as string)
-      })
-
-      .catch(err => {
-        if (errorCallback) errorCallback(err)
-      })
   }
 
   const handleLogout = () => {

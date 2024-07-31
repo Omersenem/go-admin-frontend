@@ -1,71 +1,73 @@
 // ** Axios
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 // ** Auth Config
-import authConfig from './auth'
+import authConfig from "./auth";
 
 // ** Next
-import { GetServerSidePropsContext, PreviewData } from 'next/types'
+// import Router from 'next/router'
 
-// ** Third Party
-import { ParsedUrlQuery } from 'querystring'
+// ** Toast
+import toast from "react-hot-toast";
 
-// import Cookies from 'js-cookie'
+import { GetServerSidePropsContext, PreviewData } from "next/types";
+import { ParsedUrlQuery } from "querystring";
 
-let token: string | null = null
+// ** Util Functions
+// import { getLoggerData, sendLoggerData } from 'src/@core/utils/logger'
 
-if (typeof window !== 'undefined') {
-  token = localStorage?.getItem(authConfig.storageTokenKeyName)
+let token: string | null = null;
+if (typeof window !== "undefined") {
+  token = localStorage.getItem(authConfig.storageTokenKeyName);
 }
 
 // DESC - Set Config
 const config: AxiosRequestConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
-    Authorization: 'Bearer ' + token
-  }
-}
+    Authorization: "Bearer " + token,
+  },
+};
 
 export const setToken = (newToken: string) => {
-  token = newToken
+  token = newToken;
 
-  // Update the Authorization header in the Axios instance
-  instance.defaults.headers['Authorization'] = 'Bearer ' + newToken
-}
+  instance.defaults.headers["Authorization"] = "Bearer " + newToken;
+};
 
 // DESC - Change token with server-side context request token cookie value
 export const serverSideConfig = (
   context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ): AxiosRequestConfig => {
-  const token = context.req.cookies[authConfig.storageTokenKeyName]
+  const token = context.req.cookies[authConfig.storageTokenKeyName];
 
   return {
     ...config,
     headers: {
-      Authorization: 'Bearer ' + token
-    }
-  }
-}
+      Authorization: "Bearer " + token,
+    },
+  };
+};
 
 // DESC - Clear token and redirect
-const clearUser = () => {
-  localStorage.removeItem(authConfig.storageTokenKeyName)
-  window.location.href = '/login'
-  
-  // toast.error(message)
-}
+const clearUser = (message: string) => {
+  localStorage.removeItem(authConfig.storageTokenKeyName);
+  localStorage.removeItem("userData");
 
-const instance = axios.create(config)
+  window.location.href = "/login";
+  toast.error(message);
+};
+
+const instance = axios.create(config);
 
 instance.interceptors.request.use(
   (config: any) => {
-    return config
+    return config;
   },
   (error: AxiosError) => {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
@@ -75,20 +77,36 @@ instance.interceptors.response.use(
      * sendLoggerData(loggerData)
      */
 
-    return response
+    return response;
   },
   (error: AxiosError) => {
-    if (error.response?.status === 401 && typeof window !== 'undefined') {
-      // @ts-ignore
-      clearUser()
+    /**
+     * DESC - 418 status code means user doesn't have ability to access
+     * if so redirect user to set ability page
+     */
+    if (error.response?.status === 418 && typeof window !== "undefined") {
+      window.location.href = "/set-ability";
 
-      // clearUser(error.response.data.message)
+      // Router.push('/set-ability')
     }
-    if (error.response?.status === 403 && typeof window !== 'undefined') {
-      // @ts-ignore
-      window.location.href = '/404'
 
-      // clearUser(error.response.data.message)
+    /**
+     * DESC - 455 status code means token ip and user ip doesn't match
+     * if so remove token and redirect user
+     */
+    if (error.response?.status === 455 && typeof window !== "undefined") {
+      clearUser(
+        "You've entered from another device or your network has changed."
+      );
+    }
+
+    if (
+      error.response?.status === 401 &&
+      typeof window !== "undefined" &&
+      window?.location?.pathname !== "/login/"
+    ) {
+      // @ts-ignore
+      clearUser(error?.response?.data?.message ?? "Yetkisiz İşlem!");
     }
 
     // if (error.response?.status === 500) {
@@ -101,8 +119,8 @@ instance.interceptors.response.use(
      * sendLoggerData(loggerData)
      */
 
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default instance
+export default instance;

@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65333ea7-afb6-49c1-96af-fab76e69ec38" name="Changes" comment="" />
+    <list default="true" id="65333ea7-afb6-49c1-96af-fab76e69ec38" name="Changes" comment="first commit : bismillah">
+      <change afterPath="$PROJECT_DIR$/GoAdminPanel/src/components/ProductDialog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoAdminPanel/src/components/UserDialog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoAdminPanel/src/pages/product/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/configs/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/configs/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/configs/axiosConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/configs/axiosConfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/context/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/context/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/context/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/navigation/horizontal/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/navigation/horizontal/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/navigation/vertical/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/navigation/vertical/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/pages/login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/pages/login/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/src/pages/second-page/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/src/pages/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoAdminPanel/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/GoAdminPanel/yarn.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,15 +41,34 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Netadım Ömer/GolandProjects/go-admin&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Netadım Ömer\\Desktop\\Project\\GoAdminPanel\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/GoAdminPanel/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -50,11 +85,35 @@
       <option name="presentableId" value="Default" />
       <updated>1719242326320</updated>
       <workItem from="1719242327426" duration="626000" />
-      <workItem from="1719305559911" duration="1548000" />
+      <workItem from="1719305559911" duration="2184000" />
+      <workItem from="1719322688001" duration="5788000" />
+      <workItem from="1719394024699" duration="589000" />
+      <workItem from="1719479928274" duration="593000" />
+      <workItem from="1719556897902" duration="6630000" />
+      <workItem from="1719814595318" duration="4071000" />
+      <workItem from="1722236557265" duration="104000" />
+      <workItem from="1722236986271" duration="2329000" />
+      <workItem from="1722248251054" duration="9364000" />
+      <workItem from="1722319581794" duration="592000" />
+      <workItem from="1722406717361" duration="8587000" />
+      <workItem from="1722423516659" duration="4455000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit : bismillah">
+      <option name="closed" value="true" />
+      <created>1719307437327</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719307437327</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit : bismillah" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit : bismillah" />
   </component>
 </project>

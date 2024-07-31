@@ -9,9 +9,14 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:home-outline',
     },
     {
-      title: 'Second Page',
-      path: '/second-page',
+      title: 'Kullanıcılar',
+      path: '/users',
       icon: 'mdi:email-outline',
+    },
+    {
+      title: 'Ürünler',
+      path: '/product',
+      icon: 'mdi:marketplace-outline',
     },
     {
       path: '/acl',
